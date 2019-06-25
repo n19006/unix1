@@ -1,13 +1,14 @@
-#/bin/bash
+!/bin/bash
 
 usage()
 {
-  local scripit_name=$(basename "$0")
+
+  local script_name=$(basename "$0")
 
   cat << END
-使い方:060402.sh FILEPATH...
+使い方: $script_name FILEPATH...
 FILEPATHで指定したファイルの容量を表示
-FILEPATH - 容量を求めるファイルのパスを指定、複数指定可
+FILEPATH-容量を求めるファイルのパスを指定、複数指定可
 END
 }
 
@@ -16,11 +17,11 @@ if [ "$#" -eq 0 ]; then
     exit 1
 fi
 
-for filepath in "$@"
+for file in $@
 do
-    if [ -f "$filepath" ]; then
-        du "$filepath"
+    if [ -f "$file" ]; then
+        wc -c < $file
     else
-        echo "${$filepath}: 通常のファイルパスではありません" 1>$2
+        echo "$file : 通常のファイルではありません"
     fi
 done
